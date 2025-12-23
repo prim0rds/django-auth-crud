@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <h1>Minha Biblioteca</h1>
+            <ul>
+                <li><a href="{% url 'accounts:cadastro' %}">Criar conta</a></li>
+                <li><a href="{% url 'accounts:login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Bem-vindo ao Sistema de Livro</h2>
+            <p>
+                Plataforma simples para cadastro e organização de livros.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 — Projeto Django</p>
+    </footer>
+</body>
+</html>
