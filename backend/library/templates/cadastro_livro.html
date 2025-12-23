@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Livros</title>
+</head>
+<body>
+    <header>
+        
+    </header>
+
+    <main>
+        <section>
+            <h1>Cadastro de Livro</h1>
+
+            <form action="{% url 'library:cadastro_livro' %}" method="post">
+                {% csrf_token %}
+
+                <div>
+                    {{ form.titulo.label_tag }}<br>
+                    {{ form.titulo }}
+                    {% if form.titulo.errors %}
+                        <div style="color: red;">
+                            {{ form.titulo.errors }}
+                        </div>
+                    {% endif %}
+                </div><br>
+
+                <div>
+                    {{ form.autor.label_tag }}<br>
+                    {{ form.autor }}
+                    {% if form.autor.errors %}
+                        <div style="color: red;">
+                            {{ form.autor.errors }}
+                        </div>
+                    {% endif %}
+                </div><br>
+
+                <div>
+                    {{ form.descricao.label_tag }}<br>
+                    {{ form.descricao }}
+                    {% if form.descricao.errors %}
+                        <div style="color: red;">
+                            {{ form.descricao.errors }}
+                        </div>
+                    {% endif %}
+                </div><br>
+
+                <div>
+                    {{ form.publicado_em.label_tag }}<br>
+                    {{ form.publicado_em }}
+                    {% if form.publicado_em.errors %}
+                        <div style="color: red;">
+                            {{ form.publicado_em.errors }}
+                        </div>
+                    {% endif %}
+                </div><br>
+
+                <button type="submit">Cadastrar</button>
+
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li style="color: green">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+            </form>
+        </section>
+    </main>
+
+    <footer>
+
+    </footer>
+</body>
+</html>

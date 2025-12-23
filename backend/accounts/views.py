@@ -34,6 +34,6 @@ def login_usuario(request):
 
     if request.method == 'POST' and form.is_valid():
         login(request, form.user)
-        pass
+        return redirect('library:cadastro_livro')
     
     return render(request, 'login.html', {'form': form})
