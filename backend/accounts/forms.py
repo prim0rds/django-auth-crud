@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.contrib.auth import authenticate
 
 
 class CadastroForm(forms.Form):
@@ -42,7 +43,7 @@ class CadastroForm(forms.Form):
     password_confirm = forms.CharField(
         label='Confirme a senha',
         widget=forms.PasswordInput(attrs={
-            'class': 'forms-control',
+            'class': 'form-control',
             'placeholder': 'Confirme sua senha'
         })
     )
@@ -83,3 +84,42 @@ class CadastroForm(forms.Form):
 
         if password and password_confirm and password != password_confirm:
             self.add_error('password_confirm', 'As senhas não coincidem.')
+
+
+
+class LoginForm(forms.Form):
+    """
+    Formulário responsável por autenticar o usuário.
+    Toda validação de credenciais fica aqui.
+    """
+
+    username = forms.CharField(
+        label='Usuário',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Digite seu usário'
+        })
+    )
+
+    password = forms.CharField(
+        label='Senha',
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Digite sua senha'
+        })
+    )
+
+
+    def clean(self):
+        cleaned_data = super().clean()
+        username = cleaned_data.get('username')
+        password = cleaned_data.get('password')
+
+        if username and password:
+            user = authenticate(username=username, password=password)
+
+            if not user:
+                raise forms.ValidationError('Usuário ou senha inválidos.')
+            
+            # Usuário autenticado disponível para a view
+            self.user = user

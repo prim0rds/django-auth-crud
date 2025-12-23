@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Página de Cadastro</title>
+    <title>Login</title>
 </head>
 <body>
 
@@ -12,31 +12,31 @@
 
     <main>
         <section>
-            <h2>Criar conta</h2>
+            <h2>Login</h2>
 
-            <form action="{% url 'accounts:cadastro' %}" method="post">
+            <form action="{% url 'accounts:login' %}" method="post">
                 {% csrf_token %}
 
                 {% for field in form %}
                     <div>
                         <label>{{ field.label }}</label><br>
                         {{ field }}
-
-                        {% if field.errors %}
-                            <div style="color: red;">
-                                {{ field.errors }}
-                            </div>
-                        {% endif %}
                     </div>
                     <br>
                 {% endfor %}
 
-                <button type="submit">Cadastrar</button>
+                {% if form.non_field_errors %}
+                    <div style="color: red">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <button type="submit">Entrar</button>
             </form>
 
             <p>
-                Já possui conta?
-                <a href="{% url 'accounts:login' %}">Login</a>
+                Não possui conta?
+                <a href="{% url 'accounts:cadastro' %}">Cadastre-se</a>
             </p>
         </section>
     </main>
@@ -44,7 +44,6 @@
     <footer>
         <p>&copy; 2025 — Projeto Django</p>
     </footer>
-
+    
 </body>
 </html>
-
