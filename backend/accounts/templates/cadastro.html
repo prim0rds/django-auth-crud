@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Página de Cadastro</title>
+</head>
+<body>
+
+    <header>
+        <h1>Sistema de Cadastro</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Criar conta</h2>
+
+            <form action="{% url 'cadastro' %}" method="post">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div>
+                        <label>{{ field.label }}</label><br>
+                        {{ field }}
+
+                        {% if field.errors %}
+                            <div style="color: red;">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <br>
+                {% endfor %}
+
+                <button type="submit">Cadastrar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 — Projeto Django</p>
+    </footer>
+
+</body>
+</html>
+
