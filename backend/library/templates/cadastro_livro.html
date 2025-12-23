@@ -56,7 +56,9 @@
                     {% endif %}
                 </div><br>
 
-                <button type="submit">Cadastrar</button>
+                <button type="submit">Cadastrar</button><br>
+
+                <a href="{% url 'library:lista_livros' %}">Lista de livros</a>
 
                 {% if messages %}
                 <ul>
