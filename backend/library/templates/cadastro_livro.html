@@ -1,13 +1,26 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/cadastro_livro.css' %}">
     <title>Cadastro de Livros</title>
 </head>
 <body>
-    <header>
-        
+
+    <header class="header">
+        <nav class="nav container">
+            <div></div>
+            <div class="nav-right">
+                <form action="{% url 'accounts:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
+            </div>
+        </nav>
     </header>
+
+
 
     <main>
         <section>
@@ -17,46 +30,46 @@
                 {% csrf_token %}
 
                 <div>
-                    {{ form.titulo.label_tag }}<br>
+                    {{ form.titulo.label_tag }}
                     {{ form.titulo }}
                     {% if form.titulo.errors %}
                         <div style="color: red;">
                             {{ form.titulo.errors }}
                         </div>
                     {% endif %}
-                </div><br>
+                </div>
 
                 <div>
-                    {{ form.autor.label_tag }}<br>
+                    {{ form.autor.label_tag }}
                     {{ form.autor }}
                     {% if form.autor.errors %}
                         <div style="color: red;">
                             {{ form.autor.errors }}
                         </div>
                     {% endif %}
-                </div><br>
+                </div>
 
                 <div>
-                    {{ form.descricao.label_tag }}<br>
+                    {{ form.descricao.label_tag }}
                     {{ form.descricao }}
                     {% if form.descricao.errors %}
                         <div style="color: red;">
                             {{ form.descricao.errors }}
                         </div>
                     {% endif %}
-                </div><br>
+                </div>
 
                 <div>
-                    {{ form.publicado_em.label_tag }}<br>
+                    {{ form.publicado_em.label_tag }}
                     {{ form.publicado_em }}
                     {% if form.publicado_em.errors %}
                         <div style="color: red;">
                             {{ form.publicado_em.errors }}
                         </div>
                     {% endif %}
-                </div><br>
+                </div>
 
-                <button type="submit">Cadastrar</button><br>
+                <button type="submit">Cadastrar</button>
 
                 <a href="{% url 'library:lista_livros' %}">Lista de livros</a>
 

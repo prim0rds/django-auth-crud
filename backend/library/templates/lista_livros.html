@@ -1,12 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/lista_livros.css' %}">
     <title>Lista de Livro Cadastrados</title>
 </head>
 <body>
-    <header>
-
+    <header class="header">
+        <nav class="nav container">
+            <div></div>
+            <div class="nav-right">
+                <form action="{% url 'accounts:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
+            </div>
+        </nav>
     </header>
     
     <main>
@@ -28,19 +38,24 @@
                 <tbody>
                     {% for livro in livros %}
                         <tr>
-                            <form action="{% url 'library:editar_livro' livro.pk %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                                <td><input type="text" name="titulo" value="{{ livro.titulo }}"></td>
-                                <td><input type="text" name="autor" value="{{ livro.autor }}"></td>
-                                <td><input type="date" name="publicado_em" value="{{ livro.publicado_em|date:'Y-m-d' }}"></td>
-                                <td><input type="text" name="descricao" value="{{ livro.descricao }}"></td>
-                                <td>
-                                <a href="{% url 'library:deletar_livro' livro.pk %}">Deletar</a>
-    
-                                <button type="submit">Editar</button>
-                                </td>
-                            </form>
+                            <td><input type="text" name="titulo" value="{{ livro.titulo }}" form="edit-{{ livro.pk }}"></td>
+                            <td><input type="text" name="autor" value="{{ livro.autor }}" form="edit-{{ livro.pk }}"></td>
+                            <td><input type="date" name="publicado_em" value="{{ livro.publicado_em|date:'Y-m-d' }}" form="edit-{{ livro.pk }}"></td>
+                            <td><input type="text" name="descricao" value="{{ livro.descricao }}" form="edit-{{ livro.pk }}"></td>
+
+                            <td class="actions">
+                                <form id="edit-{{ livro.pk }}" action="{% url 'library:editar_livro' livro.pk %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-edit">Editar</button>
+                                </form>
+
+                                <form action="{% url 'library:deletar_livro' livro.pk %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-delete">Deletar</button>
+                                </form>
+                            </td>
                         </tr>
+
                 
                     {% empty %}
                     <tr>

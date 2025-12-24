@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .forms import CadastroForm, LoginForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout, authenticate
 
 
 def cadastro_usuario(request):
@@ -20,7 +20,17 @@ def cadastro_usuario(request):
             email=form.cleaned_data['email'],
             password=form.cleaned_data['password']
         )
-        return redirect('login')
+
+        user = authenticate(
+            request,
+            username=form.cleaned_data['username'],
+            password=form.cleaned_data['password']
+        )
+
+        if user is not None:
+            login(request, user)
+            
+        return redirect('library:cadastro_livro')
     
     return render(request, 'cadastro.html', {'form': form})
 
@@ -37,3 +47,8 @@ def login_usuario(request):
         return redirect('library:cadastro_livro')
     
     return render(request, 'login.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('core:home')

@@ -1,50 +1,43 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Página de Cadastro</title>
+    <title>Criar conta</title>
+    <link rel="stylesheet" href="{% static 'css/cadastro_usuario.css' %}">
 </head>
 <body>
 
-    <header>
+<main class="auth-container">
+    <section class="auth-card">
+        <h2 class="auth-title">Criar conta</h2>
 
-    </header>
+        <form action="{% url 'accounts:cadastro' %}" method="post">
+            {% csrf_token %}
 
-    <main>
-        <section>
-            <h2>Criar conta</h2>
+            {% for field in form %}
+                <div class="auth-field">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <small class="error">{{ field.errors }}</small>
+                    {% endif %}
+                </div>
+            {% endfor %}
 
-            <form action="{% url 'accounts:cadastro' %}" method="post">
-                {% csrf_token %}
+            <button type="submit" class="btn btn-primary auth-btn">Cadastrar</button>
+        </form>
 
-                {% for field in form %}
-                    <div>
-                        <label>{{ field.label }}</label><br>
-                        {{ field }}
+        <p class="auth-footer">
+            Já possui conta?
+            <a href="{% url 'accounts:login' %}">Login</a>
+        </p>
+    </section>
+</main>
 
-                        {% if field.errors %}
-                            <div style="color: red;">
-                                {{ field.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                    <br>
-                {% endfor %}
-
-                <button type="submit">Cadastrar</button>
-            </form>
-
-            <p>
-                Já possui conta?
-                <a href="{% url 'accounts:login' %}">Login</a>
-            </p>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 — Projeto Django</p>
-    </footer>
+<footer class="footer">
+    <p>&copy; 2025 - Todos os direitos reservados — Projeto Django</p>
+</footer>
 
 </body>
 </html>
-

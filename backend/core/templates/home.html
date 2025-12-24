@@ -1,33 +1,50 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
+    <title>Minha Biblioteca</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
 <body>
 
-    <header>
-        <nav>
-            <h1>Minha Biblioteca</h1>
-            <ul>
-                <li><a href="{% url 'accounts:cadastro' %}">Criar conta</a></li>
-                <li><a href="{% url 'accounts:login' %}">Login</a></li>
-            </ul>
-        </nav>
-    </header>
+<header class="header">
+    <nav class="nav container">
+        <div class="nav-right">
+            <a href="{% url 'accounts:cadastro' %}" class="btn btn-outline">Criar conta</a>
+            <a href="{% url 'accounts:login' %}" class="btn btn-primary">Login</a>
+        </div>
+    </nav>
+</header>
 
-    <main>
-        <section>
-            <h2>Bem-vindo ao Sistema de Livro</h2>
-            <p>
-                Plataforma simples para cadastro e organização de livros.
-            </p>
-        </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2025 — Projeto Django</p>
-    </footer>
+<main class="main">
+    <section class="hero container">
+
+        <div class="hero-content">
+            <div class="hero-text">
+                <h2 class="hero-title">Gerencie sua biblioteca de forma simples e organizada</h2>
+                <p class="hero-description">
+                    Nosso sistema permite que você cadastre, edite, organize e acompanhe todos os seus livros em um único lugar,
+                    com uma interface limpa, rápida e segura.
+                </p>
+
+                <a href="{% url 'accounts:cadastro' %}" class="btn btn-primary hero-btn">
+                    Começar Grátis
+                </a>
+            </div>
+
+            <div class="hero-image">
+                <img src="{% static 'img/biblioteca.png' %}" alt="Imagem de biblioteca">
+            </div>
+        </div>
+
+    </section>
+</main>
+
+<footer class="footer">
+    <p>&copy; 2025 - Todos os direitos reservados — Projeto Django </p>
+</footer>
+
 </body>
 </html>
